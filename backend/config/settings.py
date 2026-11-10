@@ -95,9 +95,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
@@ -118,3 +118,12 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
+
+#할 일을 주고 받는 redis 주소, 없으면 내 컴퓨터의 redis 0번 db
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL","redis://localhost:6379/0")
+
+#태스크 결과를 돌려 받을 곳도 같은 Redis 사용
+CELERY_RESULT_BACKEND = CELERY_BROKER_URL 
+
+#celery beat 의 "매일 몇 시"를 settings의 시간에 맞춤
+CELERY_TIMEZONE = TIME_ZONE 
